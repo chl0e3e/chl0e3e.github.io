@@ -176,6 +176,7 @@ document.getElementById("load-example").addEventListener("click", function() {
             if (xmlhttp.status == 200) {
                 localStorage.lyrics = xmlhttp.responseText;
                 lyricsTable.lyrics = JSON.parse(localStorage.lyrics);
+                wavesurfer.play();
             }
             else if (xmlhttp.status == 400) {
                 alert('There was an error 400');
