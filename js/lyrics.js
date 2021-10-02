@@ -168,6 +168,28 @@ wavesurfer.on('audioprocess', function() {
     document.getElementById("player").style = css;
 });
 
+document.getElementById("load-example").addEventListener("click", function() {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+            if (xmlhttp.status == 200) {
+                localStorage.lyrics = xmlhttp.responseText;
+                lyricsTable.lyrics = localStorage.lyrics;
+            }
+            else if (xmlhttp.status == 400) {
+                alert('There was an error 400');
+            }
+            else {
+                alert('something else other than 200 was returned');
+            }
+        }
+    };
+
+    xmlhttp.open("GET", "example.json", true);
+    xmlhttp.send();
+});
+
 // lyric storage manipulation
 
 document.querySelector('#slider').oninput = function () {
