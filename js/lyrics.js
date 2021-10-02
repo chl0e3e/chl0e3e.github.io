@@ -174,7 +174,7 @@ document.getElementById("load-example").addEventListener("click", function() {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
             if (xmlhttp.status == 200) {
-                localStorage.lyrics = xmlhttp.responseText;
+                localStorage.lyrics = JSON.parse(xmlhttp.responseText);
                 lyricsTable.lyrics = localStorage.lyrics;
             }
             else if (xmlhttp.status == 400) {
