@@ -174,8 +174,8 @@ document.getElementById("load-example").addEventListener("click", function() {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
             if (xmlhttp.status == 200) {
-                localStorage.lyrics = JSON.parse(xmlhttp.responseText);
-                lyricsTable.lyrics = localStorage.lyrics;
+                localStorage.lyrics = xmlhttp.responseText;
+                lyricsTable.lyrics = JSON.parse(localStorage.lyrics);
             }
             else if (xmlhttp.status == 400) {
                 alert('There was an error 400');
