@@ -1,31 +1,142 @@
+<!DOCTYPE html>
 <html>
-<head>
-<title>AmishDonkey</TITLE>
-</HEAD>
-<BODY>
-<PRE>
-a
-b
-c
-d
-e
-f
-g
-h
-i
-j
-k
-l
-m
-n
-o
-p
-q
-r
-s
-t
-u
-v
-now why don't you suck my dick motherfucker
-</BODY>
-</HTML>
+    <head>
+        <title>Lyric Video Creator</title>
+        <script src="js/wavesurfer.js"></script>
+        <script src="js/wavesurfer.cursor.js"></script>
+        <script src="js/wavesurfer.markers.js"></script>
+        <script src="js/vue.dev.js"></script>
+
+        <link rel="stylesheet" href="css/reset.css">
+        <style>
+            @font-face {
+                font-family: 'StickNoBills';
+                src: url('fonts/StickNoBills-VariableFont_wght.ttf')  format('truetype');
+            }
+
+            body, html {
+                height: 100%;
+                width: 100%;
+                font-size: 30px;
+            }
+            body {
+                display: flex;
+                flex-direction: column;
+            }
+            #waveform {
+                width: 100%;
+                height: 130px;
+                position: relative;
+            }
+            main {
+                flex-grow: 2;
+                width: 100%;
+                display: flex;
+            }
+            aside#lyrics {
+                height: 100%;
+                width: 30%;
+                background: grey;
+                color: black;
+
+                overflow: scroll;
+                height: calc(100vh - 165px);
+            }
+            aside#lyrics > table {
+                width: 100%;
+            }
+            aside#lyrics > table > thead {
+                font-size: 14px;
+                height: 1rem;
+                line-height: 1rem;
+            }
+            aside#lyrics > table > thead .start {
+                width: 60px;
+            }
+            aside#lyrics > table > thead .append {
+                width: 15px;
+            }
+            aside#lyrics > table > thead .delete {
+                width: 55px;
+            }
+            aside#lyrics > table > thead .css {
+                width: 43px;
+            }
+            aside#lyrics > table > tbody {
+                font-size: 14px;
+                line-height: 1rem;
+            }
+            aside#lyrics > table > tbody > tr input[type="text"] {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                border-width: 0;
+            }
+
+            #player {
+                width: 70%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 64px;
+                text-align: center;
+                font-family: 'StickNoBills';
+            }
+
+            body.fullscreen-player #player {
+                width: 100%;
+            }
+
+            body.fullscreen-player #waveform {
+                display: none;
+            }
+
+            body.fullscreen-player #lyrics {
+                display: none;
+            }
+
+            body.fullscreen-player #slider {
+                display: none;
+            }
+
+            #load-example {
+                font-size: 64px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div id="player">
+                <button id="load-example">Load Example Lyrics</button>, or hit space to play
+            </div>
+            <aside id="lyrics">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="start">Start</th>
+                            <th>Line</th>
+                            <th class="append">A</th>
+                            <th class="delete">Delete</th>
+                            <th class="css">CSS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(lyric, index) in renderedLyrics">
+                            <td><input v-model="lyric.startFormatted" type="text" readonly></td>
+                            <td><input v-model="lyric.line" type="text"></td>
+                            <td><input v-model="lyric.append" @change="check(lyric.id, $event)" type="checkbox"></td>
+                            <td><button @click="removeLyric(lyric.id)">Delete</button></td>
+                            <td><button @click="css(lyric.id)">CSS</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </aside>
+        </main>
+        <input data-action="zoom" id="slider" type="range" min="1" max="200" value="0" style="width: 100%" />
+        <div id="waveform"></div>
+
+        <script src="js/lyrics.js"></script>
+    </body>
+</html>
