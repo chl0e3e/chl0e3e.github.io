@@ -116,7 +116,7 @@ var responsiveWave = wavesurfer.util.debounce(function() {
 }, 0);
 
 window.addEventListener('resize', responsiveWave);
-wavesurfer.load('music/little_dark_age.mp3');
+wavesurfer.load('music/autotheist.mp3');
 wavesurfer.on('ready', function () {
     wavesurfer.play();
 });
@@ -164,8 +164,14 @@ wavesurfer.on('audioprocess', function() {
     }
 
     // set the output in the HTML
-    document.getElementById("player").innerText = output;
-    document.getElementById("player").style = css;
+    var lyricSpan = document.createElement("span");
+    lyricSpan.innerText = output;
+    lyricSpan.style = css;
+
+    if (document.getElementById("player").innerHTML != lyricSpan.outerHTML) {
+        document.getElementById("player").innerHTML = '';
+        document.getElementById("player").appendChild( lyricSpan );
+    }
 });
 
 document.getElementById("load-example").addEventListener("click", function() {
@@ -187,7 +193,7 @@ document.getElementById("load-example").addEventListener("click", function() {
         }
     };
 
-    xmlhttp.open("GET", "example.json", true);
+    xmlhttp.open("GET", "example_autotheist.json", true);
     xmlhttp.send();
 });
 
