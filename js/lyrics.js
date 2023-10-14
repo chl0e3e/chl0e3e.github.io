@@ -116,7 +116,7 @@ var responsiveWave = wavesurfer.util.debounce(function() {
 }, 0);
 
 window.addEventListener('resize', responsiveWave);
-wavesurfer.load('music/autotheist.mp3');
+wavesurfer.load('music/little_dark_age.mp3');
 wavesurfer.on('ready', function () {
     wavesurfer.play();
 });
@@ -193,7 +193,7 @@ document.getElementById("load-example").addEventListener("click", function() {
         }
     };
 
-    xmlhttp.open("GET", "example_autotheist.json", true);
+    xmlhttp.open("GET", "example.json", true);
     xmlhttp.send();
 });
 
